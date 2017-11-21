@@ -23,6 +23,7 @@ import com.google.common.collect.ImmutableMap;
 import org.apache.kafka.common.utils.Time;
 import org.apache.kafka.connect.data.Date;
 import org.apache.kafka.connect.data.Schema;
+import org.apache.kafka.connect.data.Timestamp;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -228,6 +229,8 @@ class MsSqlChange implements Change {
           value = new java.util.Date(
               resultSet.getTime(columnName, calendar).getTime()
           );
+        } else if (Schema.Type.INT64 == schema.type() && Timestamp.LOGICAL_NAME.equals(schema.name())) {
+          value = resultSet.getTimestamp(columnName);
         } else {
           value = resultSet.getObject(columnName);
         }

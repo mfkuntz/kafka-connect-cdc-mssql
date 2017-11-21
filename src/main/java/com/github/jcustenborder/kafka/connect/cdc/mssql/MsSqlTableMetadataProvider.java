@@ -149,6 +149,7 @@ class MsSqlTableMetadataProvider extends CachingTableMetadataProvider {
         break;
       case "datetime":
       case "datetime2":
+      case "datetimeoffset":
       case "smalldatetime":
         builder = Timestamp.builder();
         break;
